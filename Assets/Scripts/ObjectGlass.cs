@@ -1,11 +1,17 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectGlass : MonoBehaviour
 {
+    [SerializeField] private List<AudioClip> _bonusSounds;
+    [SerializeField] private List<AudioClip> _tapSounds;
+
     private Animator _animator;
+    private AudioSource _audioSource;
 
     private bool _isTrigger;
+    private bool _isEnter;
     
     private static readonly int Trigger = Animator.StringToHash("trigger");
     
@@ -15,16 +21,25 @@ public class ObjectGlass : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _animator.SetFloat(Trigger, 0);
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnMouseEnter()
     {
-        if(!_isTrigger) _animator.SetFloat(Trigger, 1);
+        if (!_isTrigger)
+        {
+            _animator.SetFloat(Trigger, 1);
+            _isEnter = true;
+        }
     }
 
     private void OnMouseExit()
     {
-        if(!_isTrigger) _animator.SetFloat(Trigger, 0);
+        if (!_isTrigger)
+        {
+            _animator.SetFloat(Trigger, 0);
+            _isEnter = false;
+        }
     }
 
     public void SetIsMeltTrue()
@@ -37,5 +52,17 @@ public class ObjectGlass : MonoBehaviour
     public void Ready()
     {
         OnReady?.Invoke();
+        
+        Tools.Shuffle(_bonusSounds);
+        _audioSource.PlayOneShot(_bonusSounds[0]);
+    }
+
+    public void Tap()
+    {
+        if (_isEnter)
+        {
+            Tools.Shuffle(_tapSounds);
+            _audioSource.PlayOneShot(_tapSounds[0]);
+        }
     }
 }

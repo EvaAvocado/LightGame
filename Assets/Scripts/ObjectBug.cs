@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,17 +6,29 @@ public class ObjectBug : MonoBehaviour
 { 
     [SerializeField] private Animator _animatorMove;
     [SerializeField] private Animator _animatorBug;
+    [SerializeField] private List<AudioClip> _bugSounds;
+
+    private AudioSource _audioSource;
     
     private readonly float _neededTime = 0.35f;
     private bool _isTimer;
     private float _time;
     private bool _isFlying;
+
+    private int _counter;
     
     private static readonly int Trigger = Animator.StringToHash("trigger");
     private static readonly int Flying = Animator.StringToHash("flying");
     
     public static event Action OnReady;
-    
+
+    private void Awake()
+    {
+        _audioSource = GetComponent<AudioSource>();
+
+        Tools.Shuffle(_bugSounds);
+    }
+
     private void OnMouseEnter()
     {
         if (!_isFlying) _isTimer = true;
@@ -41,6 +52,11 @@ public class ObjectBug : MonoBehaviour
             {
                 _animatorMove.SetTrigger(Trigger);
                 _animatorBug.SetFloat(Flying, 1);
+                _audioSource.PlayOneShot(_bugSounds[_counter]);
+
+                _counter++;
+                if (_counter == _bugSounds.Count) _counter = 0;
+                
                 _isFlying = true;
                 _isTimer = false;
             }

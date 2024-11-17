@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectCat : MonoBehaviour
 {
+    [SerializeField] private List<AudioClip> _catSounds;
+    
     private readonly float _neededTime = 0.8f;
     private Animator _animator;
+    private AudioSource _audioSource;
     
     private bool _isTimer;
     private float _time;
@@ -13,6 +17,7 @@ public class ObjectCat : MonoBehaviour
     private void Awake()
     {
         _animator = GetComponent<Animator>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnMouseEnter()
@@ -41,5 +46,11 @@ public class ObjectCat : MonoBehaviour
         {
             _time = 0;
         }
+    }
+
+    public void PlayRandomSound()
+    {
+        Tools.Shuffle(_catSounds);
+        _audioSource.PlayOneShot(_catSounds[0]);
     }
 }
