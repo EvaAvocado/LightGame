@@ -21,6 +21,7 @@ public class ObjectCandle : MonoBehaviour
     private bool _isOn;
     
     private static readonly int Start = Animator.StringToHash("start");
+    private static readonly int Stop = Animator.StringToHash("stop");
     private static readonly int On = Animator.StringToHash("on");
     
     public static event Action OnReady;
@@ -52,7 +53,7 @@ public class ObjectCandle : MonoBehaviour
             {
                 _isTimer = false;
                 _time = 0;
-                _animator.SetTrigger(Start);
+                _animator.SetTrigger(Stop);
             }
         }
     }
