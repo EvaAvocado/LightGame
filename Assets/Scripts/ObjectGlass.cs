@@ -22,6 +22,7 @@ public class ObjectGlass : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animator.SetFloat(Trigger, 0);
         _audioSource = GetComponent<AudioSource>();
+        _audioSource.volume = 0.2f;
     }
 
     private void OnMouseEnter()
@@ -38,7 +39,6 @@ public class ObjectGlass : MonoBehaviour
         if (!_isTrigger)
         {
             _animator.SetFloat(Trigger, 0);
-            _isEnter = false;
         }
     }
 
@@ -54,6 +54,7 @@ public class ObjectGlass : MonoBehaviour
         OnReady?.Invoke();
         
         Tools.Shuffle(_bonusSounds);
+        _audioSource.volume = 1f;
         _audioSource.PlayOneShot(_bonusSounds[0]);
     }
 

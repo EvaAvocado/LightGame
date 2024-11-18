@@ -5,14 +5,20 @@ using UnityEngine.Rendering.Universal;
 public class ObjectLamps : MonoBehaviour
 {
     [SerializeField] private Light2D _light2D;
+    [SerializeField] private AudioClip _lampSound;
+    [SerializeField] private AudioClip _onSound;
     
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
+    private AudioSource _audioSource;
     
     private float _neededTime = 3f;
     private bool _isTimer;
     private bool _isOn;
     private float _time;
+
+    private bool _isOffSound;
+    private bool _isOnMusic;
     
     private static readonly int Trigger = Animator.StringToHash("trigger");
     private static readonly int TurnOn = Animator.StringToHash("turn-on");
@@ -24,6 +30,7 @@ public class ObjectLamps : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnMouseEnter()
@@ -66,8 +73,26 @@ public class ObjectLamps : MonoBehaviour
         OnReady?.Invoke();
     }
 
+    public void OffMusic()
+    {
+        _isOffSound = true;
+    }
+
     public void OnLight()
     {
+        if (!_isOffSound && !_isOnMusic)
+        {
+            _audioSource.PlayOneShot(_lampSound);
+        }
+        else if (_isOffSound && !_isOnMusic)
+        {
+            _audioSource.loop = true;
+            _audioSource.volume = 0.02f;
+            _audioSource.clip = _onSound;
+            _audioSource.Play();
+            _isOnMusic = true;
+        }
+        
         _light2D.lightCookieSprite = _spriteRenderer.sprite;
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ObjectFlower : MonoBehaviour
 {
     [SerializeField] private List<AudioClip> _bonusSounds;
-    [SerializeField] private List<AudioClip> _tapSounds;
+    [SerializeField] private List<AudioClip> _flowerSounds;
 
     private Animator _animator;
     private AudioSource _audioSource;
@@ -22,6 +22,7 @@ public class ObjectFlower : MonoBehaviour
         _animator = GetComponent<Animator>();
         _animator.SetFloat(Rise, 0);
         _audioSource = GetComponent<AudioSource>();
+        _audioSource.volume = 0.2f;
     }
 
     private void OnMouseEnter()
@@ -38,7 +39,6 @@ public class ObjectFlower : MonoBehaviour
         if (!_isRise)
         {
             _animator.SetFloat(Rise, -1);
-            _isEnter = false;
         }
     }
 
@@ -61,6 +61,7 @@ public class ObjectFlower : MonoBehaviour
         OnReady?.Invoke();
         
         Tools.Shuffle(_bonusSounds);
+        _audioSource.volume = 1;
         _audioSource.PlayOneShot(_bonusSounds[0]);
     }
     
@@ -68,8 +69,9 @@ public class ObjectFlower : MonoBehaviour
     {
         if (_isEnter)
         {
-            Tools.Shuffle(_tapSounds);
-            _audioSource.PlayOneShot(_tapSounds[0]);
+            Tools.Shuffle(_flowerSounds);
+            _audioSource.PlayOneShot(_flowerSounds[0]);
+            _audioSource.PlayOneShot(_flowerSounds[0]);
         }
     }
 }

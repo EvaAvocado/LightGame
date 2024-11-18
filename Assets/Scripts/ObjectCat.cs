@@ -11,6 +11,7 @@ public class ObjectCat : MonoBehaviour
     
     private bool _isTimer;
     private float _time;
+    private int _counter;
     
     private static readonly int Trigger = Animator.StringToHash("trigger");
 
@@ -50,7 +51,8 @@ public class ObjectCat : MonoBehaviour
 
     public void PlayRandomSound()
     {
-        Tools.Shuffle(_catSounds);
-        _audioSource.PlayOneShot(_catSounds[0]);
+        _audioSource.PlayOneShot(_catSounds[_counter]);
+        _counter++;
+        if (_counter == _catSounds.Count) _counter = 0;
     }
 }

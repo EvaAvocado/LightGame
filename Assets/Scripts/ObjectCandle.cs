@@ -1,16 +1,20 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class ObjectCandle : MonoBehaviour
 {
     [SerializeField] private Light2D _light2D;
+    [SerializeField] private List<AudioClip> _onSounds;
+    [SerializeField] private List<AudioClip> _bonusSounds;
     
     private SpriteRenderer _spriteRenderer;
     
-    private readonly float _neededTime = 2f;
+    private AudioSource _audioSource;
     private Animator _animator;
     
+    private readonly float _neededTime = 1.5f;
     private bool _isTimer;
     private float _time;
 
@@ -25,6 +29,7 @@ public class ObjectCandle : MonoBehaviour
     {
         _animator = GetComponent<Animator>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -72,6 +77,8 @@ public class ObjectCandle : MonoBehaviour
     
     public void Ready()
     {
+        Tools.Shuffle(_bonusSounds);
+        _audioSource.PlayOneShot(_bonusSounds[0]);
         OnReady?.Invoke();
     }
     
@@ -83,5 +90,11 @@ public class ObjectCandle : MonoBehaviour
     public void OffLight()
     {
         _light2D.lightCookieSprite = null;
+    }
+
+    public void OnSound()
+    {
+        Tools.Shuffle(_onSounds);
+        _audioSource.PlayOneShot(_onSounds[0]);
     }
 }

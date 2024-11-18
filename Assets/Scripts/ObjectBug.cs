@@ -7,6 +7,11 @@ public class ObjectBug : MonoBehaviour
     [SerializeField] private Animator _animatorMove;
     [SerializeField] private Animator _animatorBug;
     [SerializeField] private List<AudioClip> _bugSounds;
+    [SerializeField] private AudioClip _bugBonusSound;
+    [SerializeField] private AudioClip _readySound;
+    [SerializeField] private AudioSource _bonusAudioSource;
+
+    [SerializeField] private GameObject _lightGO;
 
     private AudioSource _audioSource;
     
@@ -71,11 +76,19 @@ public class ObjectBug : MonoBehaviour
     {
         _animatorBug.SetFloat(Flying, 0);
         _isFlying = false;
+
+        _bonusAudioSource.PlayOneShot(_bugBonusSound);
+        _bonusAudioSource.pitch += 0.45f;
     }
     
     public void Ready()
     {
+        _animatorBug.SetFloat(Flying, 0);
+        _isFlying = false;
+        
+        _audioSource.PlayOneShot(_readySound);
+        
         OnReady?.Invoke();
-        gameObject.SetActive(false);
+        _lightGO.SetActive(false);
     }
 }

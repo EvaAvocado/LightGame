@@ -22,28 +22,28 @@ AnimationClip:
     curve:
     - time: 0
       value: {fileID: 21300000, guid: 066c7371c2f9998429884c2c81b9f028, type: 3}
-    - time: 0.5
+    - time: 0.4
       value: {fileID: 21300000, guid: 6158145723e46e74f88302f64df387fe, type: 3}
-    - time: 1
+    - time: 0.8
       value: {fileID: 21300000, guid: e4d3e1771dceb76449fd8cbb0871c1a8, type: 3}
-    - time: 1.5
+    - time: 1.2
       value: {fileID: 21300000, guid: c71eb57507fa8a149a06cdba8bfe2a63, type: 3}
-    - time: 2
+    - time: 1.6
       value: {fileID: 21300000, guid: fae6b3e6da3972c4dbd01b882bef3dd5, type: 3}
-    - time: 2.5
+    - time: 2
       value: {fileID: 21300000, guid: b5019527b6ce94a43866c095c8154552, type: 3}
-    - time: 3
+    - time: 2.4
       value: {fileID: 21300000, guid: cf4f897966e2633418319f2eb35339c4, type: 3}
-    - time: 3.5
+    - time: 2.8
       value: {fileID: 21300000, guid: b0e8a62affb4c0e4a979d848d370cd12, type: 3}
-    - time: 4
+    - time: 3.2
       value: {fileID: 21300000, guid: 20928399e63ba8c49830b9540c3305be, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
     script: {fileID: 0}
     flags: 2
-  m_SampleRate: 2
+  m_SampleRate: 5
   m_WrapMode: 0
   m_Bounds:
     m_Center: {x: 0, y: 0, z: 0}
@@ -74,7 +74,7 @@ AnimationClip:
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 4.5
+    m_StopTime: 3.4
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -101,21 +101,28 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.5
+  - time: 0.4
     functionName: Tap
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1
+  - time: 0.8
     functionName: Tap
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 1.5
+  - time: 1.2
+    functionName: Tap
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.6
     functionName: Tap
     data: 
     objectReferenceParameter: {fileID: 0}
@@ -129,28 +136,21 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 2.5
+  - time: 2.4
     functionName: Tap
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 3
+  - time: 2.8
     functionName: Tap
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 3.5
-    functionName: Tap
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 4
+  - time: 3.2
     functionName: SetIsMeltTrue
     data: 
     objectReferenceParameter: {fileID: 0}
