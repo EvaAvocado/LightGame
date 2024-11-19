@@ -21,9 +21,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 21300000, guid: a6e3eaaa2bdaad64f98fb9f3755587b0, type: 3}
-    - time: 0.11111111
       value: {fileID: 21300000, guid: 4d9e3adfc7353a14398691231ce6c5f4, type: 3}
+    - time: 0.11111111
+      value: {fileID: 21300000, guid: a6e3eaaa2bdaad64f98fb9f3755587b0, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -46,8 +46,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 21300000, guid: a6e3eaaa2bdaad64f98fb9f3755587b0, type: 3}
     - {fileID: 21300000, guid: 4d9e3adfc7353a14398691231ce6c5f4, type: 3}
+    - {fileID: 21300000, guid: a6e3eaaa2bdaad64f98fb9f3755587b0, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -74,21 +74,21 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0
-    functionName: OffLight
-    data: 
-    objectReferenceParameter: {fileID: 0}
-    floatParameter: 0
-    intParameter: 0
-    messageOptions: 0
-  - time: 0.11111111
     functionName: OnLight
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.11111111
+  - time: 0
     functionName: OnSound
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.11111111
+    functionName: OffLight
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
