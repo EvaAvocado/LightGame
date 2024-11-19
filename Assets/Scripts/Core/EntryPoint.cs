@@ -1,30 +1,33 @@
 using System.Collections.Generic;
+using Controllers;
 using Objects;
 using UI;
 using UnityEngine;
-using Ray = UI.Ray;
+using Ray = Playable.Ray;
 
-namespace Controllers
+namespace Core
 {
     public class EntryPoint : MonoBehaviour
     {
         [SerializeField] private List<InteractObject> _objects;
-        [SerializeField] private Score _score;
+        [SerializeField] private ScoreView _scoreView;
         [SerializeField] private Ray _ray;
     
         private AudioController _audioController;
+        private ScoreController _scoreController;
 
         private void Awake()
         {
             _audioController = new AudioController();
+            _scoreController = new ScoreController();
         
             foreach (var obj in _objects)
             {
-                obj.Init(_audioController, _score);
+                obj.Init(_audioController, _scoreController);
             }
         
-            _score.Init(_objects);
-            _ray.Init(_score);
+            _scoreController.Init(_objects, _scoreView);
+            _ray.Init(_scoreController);
         }
     }
 }

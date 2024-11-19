@@ -11,15 +11,15 @@ namespace Objects
         protected Animator _animator;
         protected AudioSource _audioSource;
         protected AudioController _audioController;
-        protected Score _score;
+        protected ScoreController _scoreController;
 
         public Action OnReady;
         
-        public void Init(AudioController audioController, Score score)
+        public void Init(AudioController audioController, ScoreController scoreController)
         {
             _animator = GetComponent<Animator>();
             _audioSource = GetComponent<AudioSource>();
-            _score = score;
+            _scoreController = scoreController;
             _audioController = audioController;
             OnStart();
         }

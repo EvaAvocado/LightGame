@@ -1,7 +1,9 @@
 using System;
+using Controllers;
+using UI;
 using UnityEngine;
 
-namespace UI
+namespace Playable
 {
     public class Ray : MonoBehaviour
     {
@@ -15,9 +17,9 @@ namespace UI
         private float _alpha;
         private float _delta;
 
-        public void Init(Score score)
+        public void Init(ScoreController scoreController)
         {
-            score.OnAddScore += AddDelta;
+            scoreController.OnAddScore += AddDelta;
         }
     
         private void Update()

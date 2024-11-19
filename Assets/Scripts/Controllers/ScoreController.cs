@@ -1,32 +1,32 @@
 using System;
 using System.Collections.Generic;
 using Objects;
-using UnityEngine;
-using UnityEngine.UI;
+using UI;
 
-namespace UI
+namespace Controllers
 {
-    public class Score : MonoBehaviour
+    public class ScoreController
     {
-        [SerializeField] private Text _text;
-    
+        private ScoreView _scoreView;
         private int _points;
     
         public Action OnAddScore;
         public Action OnScoreReady;
 
-        public void Init(List<InteractObject> interactObjects)
+        public void Init(List<InteractObject> interactObjects, ScoreView scoreView)
         {
             foreach (var obj in interactObjects)
             {
                 obj.OnReady += AddScore;
             }
+
+            _scoreView = scoreView;
         }
 
         private void AddScore()
         {
             _points++;
-            _text.text = _points + "/10";
+            _scoreView.SetNewPointsInText(_points);
             OnAddScore?.Invoke();
         
             if (_points == 10) OnScoreReady?.Invoke();

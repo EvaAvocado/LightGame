@@ -20,7 +20,7 @@ namespace Objects
 
         protected override void OnStart()
         {
-            _score.OnScoreReady += WakeUp;
+            _scoreController.OnScoreReady += WakeUp;
             _timer = GetComponent<Timer>();
             _timer.OnTimerEnd += PlayAnim;
         }
