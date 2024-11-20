@@ -1,3 +1,4 @@
+using System;
 using Tools;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
@@ -100,6 +101,16 @@ namespace Objects
         public void OffLight()
         {
             _light2D.lightCookieSprite = null;
+        }
+
+        private void OnDisable()
+        {
+            _timers[0].OnTimerEnd -= () =>
+            {
+                _isCanOnEnter = true;
+                CheckEnter();
+            };
+            _timers[1].OnTimerEnd -= PlayAnim;
         }
     }
 }

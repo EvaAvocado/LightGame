@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Tools;
 using UnityEngine;
@@ -74,6 +75,11 @@ namespace Objects
             _animatorBug.gameObject.SetActive(false);
             _audioController.PlayOneShot(_audioSource, _readySound);
             _isFlying = false;
+        }
+
+        private void OnDisable()
+        {
+            _timer.OnTimerEnd -= PlayAnim;
         }
     }
 }

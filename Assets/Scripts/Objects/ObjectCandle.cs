@@ -103,5 +103,15 @@ namespace Objects
         {
             _audioController.PlayRandomSound(_audioSource, _onSounds);
         }
+        
+        private void OnDisable()
+        {
+            _timers[0].OnTimerEnd -= () =>
+            {
+                _isCanTrigger = true;
+                CheckEnter();
+            };
+            _timers[1].OnTimerEnd -= PlayAnim;
+        }
     }
 }

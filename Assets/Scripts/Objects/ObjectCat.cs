@@ -40,5 +40,10 @@ namespace Objects
         {
             _counter = _audioController.PlayNextSound(_audioSource, _catSounds, _counter);
         }
+        
+        private void OnDisable()
+        {
+            _timer.OnTimerEnd -= PlayAnim;
+        }
     }
 }

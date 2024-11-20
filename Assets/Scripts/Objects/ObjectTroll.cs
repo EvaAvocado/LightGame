@@ -74,5 +74,11 @@ namespace Objects
         {
             _audioController.PlayOneShot(_audioSource, _wakeUpSound, _pitchOnWakeUp);;
         }
+        
+        private void OnDisable()
+        {
+            _scoreController.OnScoreReady -= WakeUp;
+            _timer.OnTimerEnd -= PlayAnim;
+        }
     }
 }

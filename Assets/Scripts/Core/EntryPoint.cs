@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Controllers;
+using Data;
 using Objects;
 using UI;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace Core
         [SerializeField] private List<InteractObject> _objects;
         [SerializeField] private ScoreView _scoreView;
         [SerializeField] private Ray _ray;
+        [SerializeField] private GameConfig _config;
     
         private AudioController _audioController;
         private ScoreController _scoreController;
@@ -26,7 +28,7 @@ namespace Core
                 obj.Init(_audioController, _scoreController);
             }
         
-            _scoreController.Init(_objects, _scoreView);
+            _scoreController.Init(_objects, _scoreView, _config.maxPoints);
             _ray.Init(_scoreController);
         }
     }
