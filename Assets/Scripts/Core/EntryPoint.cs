@@ -28,7 +28,7 @@ namespace Core
                 obj.Init(_audioController, _scoreController);
             }
         
-            _scoreController.Init(_objects, _scoreView, _config.maxPoints);
+            _scoreController.Init(_objects, _scoreView, _config.MaxScore);
             _ray.Init(_scoreController);
         }
     }
