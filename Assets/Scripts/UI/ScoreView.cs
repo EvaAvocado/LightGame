@@ -6,10 +6,15 @@ namespace UI
     public class ScoreView : MonoBehaviour
     {
         [SerializeField] private Text _text;
-
-        public void SetNewPointsInText(int points)
+        
+        public void Init(int maxPoints)
         {
-            _text.text = points + "/10";
+            _text.text = "0/" + maxPoints;
+        }
+        
+        public void SetNewPointsInText(int points, int maxPoints)
+        {
+            _text.text = points + "/" + maxPoints;
         }
     }
 }

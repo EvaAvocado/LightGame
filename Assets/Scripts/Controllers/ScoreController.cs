@@ -25,12 +25,14 @@ namespace Controllers
 
             _scoreView = scoreView;
             _maxPoints = maxPoints;
+
+            _scoreView.Init(_maxPoints);
         }
 
         private void AddScore()
         {
             _points++;
-            _scoreView.SetNewPointsInText(_points);
+            _scoreView.SetNewPointsInText(_points, _maxPoints);
             OnAddScore?.Invoke();
 
             CheckScore();

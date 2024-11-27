@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using DG.Tweening;
 using Tools;
 using UnityEngine;
 
@@ -10,8 +12,28 @@ namespace Objects
         [SerializeField] private AudioClip _wakeUpSound;
         [SerializeField] private AudioClip _bonusSound;
         [SerializeField] private float _pitchOnWakeUp = 1.75f;
+        
+        [Header("Camera Settings")]
+        [SerializeField] private Vector3 _cameraPosition;
+        [SerializeField] private float _cameraScale;
+        [SerializeField] private float _cameraDuration;
 
-        private bool _isWakeUp;
+        [Header("End Sprite Settings")] 
+        [SerializeField] private GameObject _endSprites;
+        [SerializeField] private GameObject _circleSprite;
+        [SerializeField] private Vector3 _gameObjectPosition;
+        [SerializeField] private Vector3 _gameObjectScale;
+        [SerializeField] private float _gameObjectDuration;
+        [SerializeField] private float _gameObjectCompleteDuration;
+        
+        [Header("The End Settings")]
+        [SerializeField] private AudioClip _theEndSound;
+        [SerializeField] private GameObject _theEndSprite;
+        [SerializeField] private Vector3 _theEndScale;
+        [SerializeField] private float _theEndDuration;
+        [SerializeField] private List<GameObject> _offGameObjects;
+
+        private bool _isCanWakeUp;
         private bool _isTumble;
         private Timer _timer;
 
@@ -20,19 +42,19 @@ namespace Objects
 
         protected override void OnStart()
         {
-            _scoreController.OnScoreReady += WakeUp;
+            _scoreController.OnScoreReady += SetIsCanWakeUp;
             _timer = GetComponent<Timer>();
-            _timer.OnTimerEnd += PlayAnim;
+            _timer.OnTimerEnd += WakeUp;
         }
 
         protected override void OnEnter()
         {
-            if (!_isWakeUp && !_isTumble)
+            if (!_isCanWakeUp && !_isTumble)
             {
                 _audioController.PlayOneShot(_audioSource, _noSound);
                 _animator.SetTrigger(TumbleTrigger);
             }
-            else if (_isWakeUp && !_isTumble)
+            else if (_isCanWakeUp && !_isTumble)
             {
                 _timer.Begin();
             }
@@ -40,21 +62,27 @@ namespace Objects
 
         protected override void OnExit()
         {
-            if (_isWakeUp)
+            if (_isCanWakeUp)
             {
                 _timer.Reset();
             }
         }
 
-        private void PlayAnim()
+        private void WakeUp()
         {
             _audioController.PlayOneShot(_audioSource, _bonusSound); 
             _animator.SetTrigger(WakeUpTrigger);
+            
+            foreach (var obj in _offGameObjects)
+            {
+                obj.SetActive(false);
+            }
+            MoveCamera();
         }
 
-        private void WakeUp()
+        private void SetIsCanWakeUp()
         {
-            _isWakeUp = true;
+            _isCanWakeUp = true;
         }
         
         // Called from the Animation when Troll starts tumbling
@@ -77,8 +105,33 @@ namespace Objects
         
         private void OnDisable()
         {
-            _scoreController.OnScoreReady -= WakeUp;
-            _timer.OnTimerEnd -= PlayAnim;
+            _scoreController.OnScoreReady -= SetIsCanWakeUp;
+            _timer.OnTimerEnd -= WakeUp;
+        }
+        
+        private void MoveCamera()
+        {
+            _cameraController.MoveCamera(Camera.main, _cameraPosition, _cameraDuration);
+            _cameraController.ScaleCamera(Camera.main, _cameraScale, _cameraDuration, MoveGameObject);
+        }
+        
+        private void MoveGameObject()
+        {
+            _endSprites.SetActive(true);
+            Vector3 worldPosition = _circleSprite.transform.parent.TransformPoint(_gameObjectPosition);
+            _gameObjectController.MoveObject(_circleSprite, worldPosition, _gameObjectDuration, Ease.Linear);
+            _gameObjectController.ScaleObject(_circleSprite, _gameObjectScale, _gameObjectDuration, CompleteGameObject, Ease.Linear);
+        }
+
+        private void CompleteGameObject()
+        {
+            _gameObjectController.ScaleObject(_circleSprite, Vector3.zero, _gameObjectCompleteDuration, MoveTheEnd, Ease.InOutBack);
+        }
+        
+        private void MoveTheEnd()
+        {
+            _audioController.PlayOneShot(_audioSource, _theEndSound, 1f);
+            _gameObjectController.ScaleObject(_theEndSprite, _theEndScale, _theEndDuration, Ease.OutBack);
         }
     }
 }

@@ -12,6 +12,7 @@ namespace Objects
         [SerializeField] private AudioClip _lampSound;
         [SerializeField] private AudioClip _onSound;
         [SerializeField] private Timer[] _timers;
+        [SerializeField] private AudioSource _newSource;
 
         private SpriteRenderer _spriteRenderer;
         private bool _isOn;
@@ -23,7 +24,7 @@ namespace Objects
         private static readonly int TurnOn = Animator.StringToHash("turn-on");
         private static readonly int TurnOff = Animator.StringToHash("turn-off");
 
-        private void Awake()
+        protected override void OnStart()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _timers[0].OnTimerEnd += () =>
@@ -32,6 +33,8 @@ namespace Objects
                 CheckEnter();
             };
             _timers[1].OnTimerEnd += PlayAnim;
+
+            _audioSource = _newSource;
         }
 
         protected override void OnEnter()
