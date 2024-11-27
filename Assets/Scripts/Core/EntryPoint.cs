@@ -17,19 +17,15 @@ namespace Core
     
         private AudioController _audioController;
         private ScoreController _scoreController;
-        private CameraController _cameraController;
-        private GameObjectController _gameObjectController;
 
         private void Awake()
         {
             _audioController = new AudioController();
             _scoreController = new ScoreController();
-            _cameraController = new CameraController();
-            _gameObjectController = new GameObjectController();
         
             foreach (var obj in _objects)
             {
-                obj.Init(_audioController, _scoreController, _cameraController, _gameObjectController);
+                obj.Init(_audioController, _scoreController);
             }
         
             _scoreController.Init(_objects, _scoreView, _config.MaxScore);

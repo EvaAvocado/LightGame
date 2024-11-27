@@ -11,19 +11,15 @@ namespace Objects
         protected AudioSource _audioSource;
         protected AudioController _audioController;
         protected ScoreController _scoreController;
-        protected CameraController _cameraController;
-        protected GameObjectController _gameObjectController;
 
         public Action OnReady;
         
-        public void Init(AudioController audioController, ScoreController scoreController, CameraController cameraController, GameObjectController gameObjectController)
+        public void Init(AudioController audioController, ScoreController scoreController)
         {
             _animator = GetComponent<Animator>();
             _audioSource = GetComponent<AudioSource>();
             _scoreController = scoreController;
             _audioController = audioController;
-            _cameraController = cameraController;
-            _gameObjectController = gameObjectController;
             
             OnStart();
         }
