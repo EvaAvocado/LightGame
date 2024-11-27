@@ -13,6 +13,7 @@ namespace Animations
         [SerializeField] private float _cameraDuration;
 
         [Header("End Sprite Settings")] 
+        [SerializeField] private AudioClip _endSound;
         [SerializeField] private GameObject _endSprites;
         [SerializeField] private GameObject _circleSprite;
         [SerializeField] private Vector3 _gameObjectPosition;
@@ -60,6 +61,7 @@ namespace Animations
 
         private void CompleteGameObject()
         {
+            _audioController.PlayOneShot(_audioSource, _endSound, 1f);
             _circleSprite.transform.DOScale(Vector3.zero, _gameObjectCompleteDuration).SetEase(Ease.InOutBack).OnComplete(MoveTheEnd);
         }
         
