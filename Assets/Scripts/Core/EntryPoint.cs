@@ -1,35 +1,61 @@
-using System.Collections.Generic;
+using System;
 using Controllers;
-using Data;
-using Objects;
-using UI;
 using UnityEngine;
-using Ray = Playable.Ray;
 
 namespace Core
 {
     public class EntryPoint : MonoBehaviour
     {
-        [SerializeField] private List<InteractObject> _objects;
-        [SerializeField] private ScoreView _scoreView;
-        [SerializeField] private Ray _ray;
-        [SerializeField] private GameConfig _config;
-    
         private AudioController _audioController;
-        private ScoreController _scoreController;
+        private SceneSwitchController _sceneSwitchController;
 
         private void Awake()
         {
             _audioController = new AudioController();
-            _scoreController = new ScoreController();
-        
-            foreach (var obj in _objects)
+            _sceneSwitchController = new SceneSwitchController();
+
+            _sceneSwitchController.OnLoadScene += CheckLoadedScene;
+
+            _audioController.SetVolumeFromPlayerPrefs();
+            OpenMenu();
+            DontDestroyOnLoad(gameObject);
+        }
+
+        private void CheckLoadedScene(string sceneName)
+        {
+            switch (sceneName)
             {
-                obj.Init(_audioController, _scoreController);
+                case "Menu":
+                    OpenMenu();
+                    break;
+                case "Game":
+                    FindLevelInstaller();
+                    break;
+                case "Tutorial":
+                    print("Tutorial");
+                    break;
             }
-        
-            _scoreController.Init(_objects, _scoreView, _config.MaxScore);
-            _ray.Init(_scoreController);
+        }
+
+        private void FindLevelInstaller()
+        {
+            LevelInstaller levelInstaller = FindFirstObjectByType<LevelInstaller>();
+            levelInstaller.Init(_audioController);
+
+            _audioController.Init(levelInstaller.GetMusicSources());
+        }
+
+        private void OpenMenu()
+        {
+            MenuInstaller menuInstaller = FindFirstObjectByType<MenuInstaller>();
+            menuInstaller.Init(_audioController, _sceneSwitchController);
+            
+            _audioController.Init(menuInstaller.GetMusicSources());
+        }
+
+        private void OnDisable()
+        {
+            _audioController.SaveVolumeToPlayerPrefs();
         }
     }
 }

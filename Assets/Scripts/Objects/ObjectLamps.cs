@@ -12,7 +12,7 @@ namespace Objects
         [SerializeField] private AudioClip _lampSound;
         [SerializeField] private AudioClip _onSound;
         [SerializeField] private Timer[] _timers;
-        [SerializeField] private AudioSource _newSource;
+        [SerializeField] private AudioSource _musicSource;
 
         private SpriteRenderer _spriteRenderer;
         private bool _isOn;
@@ -33,8 +33,6 @@ namespace Objects
                 CheckEnter();
             };
             _timers[1].OnTimerEnd += PlayAnim;
-
-            _audioSource = _newSource;
         }
 
         protected override void OnEnter()
@@ -93,7 +91,7 @@ namespace Objects
             }
             else if (_isOffSound && !_isOnMusic)
             {
-                _audioController.PlayMusic(_audioSource, _onSound, true, 0.02f);
+                _audioController.PlayMusic(_musicSource, _onSound, true, 0.02f);
                 _isOnMusic = true;
             }
 
