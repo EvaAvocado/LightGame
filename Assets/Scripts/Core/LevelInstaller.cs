@@ -17,14 +17,16 @@ namespace Core
         [SerializeField] private List<AudioSource> _musicSources;
         
         private ScoreController _scoreController;
+        private SceneSwitchController _sceneSwitchController;
 
-        public void Init(AudioController audioController)
+        public void Init(AudioController audioController, SceneSwitchController sceneSwitchController)
         {
             _scoreController = new ScoreController();
+            _sceneSwitchController = sceneSwitchController;
         
             foreach (var obj in _objects)
             {
-                obj.Init(audioController, _scoreController);
+                obj.Init(audioController, _scoreController, _sceneSwitchController);
             }
         
             _scoreController.Init(_objects, _scoreView, _config.MaxScore);

@@ -13,13 +13,15 @@ namespace Objects
         protected ScoreController _scoreController;
 
         public Action OnReady;
+        protected SceneSwitchController _sceneSwitchController;
         
-        public void Init(AudioController audioController, ScoreController scoreController)
+        public void Init(AudioController audioController, ScoreController scoreController, SceneSwitchController sceneSwitchController)
         {
             _animator = GetComponent<Animator>();
             _audioSource = GetComponent<AudioSource>();
             _scoreController = scoreController;
             _audioController = audioController;
+            _sceneSwitchController = sceneSwitchController;
             
             OnStart();
         }

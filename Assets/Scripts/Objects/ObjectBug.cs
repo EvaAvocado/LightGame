@@ -10,8 +10,6 @@ namespace Objects
     { 
         [SerializeField] private Animator _animatorBug;
         [SerializeField] private List<AudioClip> _bugSounds;
-        [SerializeField] private AudioClip _bugBonusSound;
-        [SerializeField] private AudioClip _readySound;
 
         private Timer _timer;
         private bool _isFlying;
@@ -62,8 +60,8 @@ namespace Objects
             _animatorBug.SetFloat(Flying, 0);
             _isFlying = false;
 
-            _audioController.PlayOneShot(_audioSource, _bugBonusSound, _pitch);
-            _pitch += 0.45f;
+            //_audioController.PlayOneShot(_audioSource, _bugBonusSound, _pitch);
+            //_pitch += 0.45f;
         }
         
         // Called from the Animation when the beetle finishes the last animation
@@ -73,7 +71,6 @@ namespace Objects
             
             _animatorBug.SetFloat(Flying, 0);
             _animatorBug.gameObject.SetActive(false);
-            _audioController.PlayOneShot(_audioSource, _readySound);
             _isFlying = false;
         }
 

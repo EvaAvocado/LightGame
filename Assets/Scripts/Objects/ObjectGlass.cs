@@ -5,7 +5,6 @@ namespace Objects
 {
     public class ObjectGlass : InteractObject
     {
-        [SerializeField] private List<AudioClip> _bonusSounds;
         [SerializeField] private List<AudioClip> _tapSounds;
 
         private bool _isTrigger;
@@ -42,14 +41,6 @@ namespace Objects
             _isTrigger = true;
             _animator.SetFloat(Trigger, 0);
             Ready();
-        }
-
-        public override void Ready()
-        {
-            base.Ready();
-        
-            _audioSource.volume = 1f;
-            _audioController.PlayRandomSound(_audioSource, _bonusSounds);
         }
 
         // Called from the Animation when the frame is switched 

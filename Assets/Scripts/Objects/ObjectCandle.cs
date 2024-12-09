@@ -9,7 +9,6 @@ namespace Objects
     public class ObjectCandle : InteractObject
     {
         [SerializeField] private List<AudioClip> _onSounds;
-        [SerializeField] private List<AudioClip> _bonusSounds;
         [SerializeField] private Light2D _light2D;
         [SerializeField] private Timer[] _timers;
     
@@ -82,8 +81,6 @@ namespace Objects
         public override void Ready()
         {
             base.Ready();
-            
-            _audioController.PlayRandomSound(_audioSource, _bonusSounds);
         }
     
         // Called from the Animation when the light is on

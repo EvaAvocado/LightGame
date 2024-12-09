@@ -1,4 +1,3 @@
-using System;
 using Controllers;
 using UnityEngine;
 
@@ -40,7 +39,7 @@ namespace Core
         private void FindLevelInstaller()
         {
             LevelInstaller levelInstaller = FindFirstObjectByType<LevelInstaller>();
-            levelInstaller.Init(_audioController);
+            levelInstaller.Init(_audioController, _sceneSwitchController);
 
             _audioController.Init(levelInstaller.GetMusicSources());
         }

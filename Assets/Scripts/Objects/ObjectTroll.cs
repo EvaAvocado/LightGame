@@ -53,7 +53,7 @@ namespace Objects
         {
             _audioController.PlayOneShot(_audioSource, _bonusSound); 
             _animator.SetTrigger(WakeUpTrigger);
-            _objectTrollAnimation.StartAnimation(_audioController, _audioSource);
+            _objectTrollAnimation.StartAnimation(_audioController, _audioSource, _sceneSwitchController);
         }
 
         private void SetIsCanWakeUp()
