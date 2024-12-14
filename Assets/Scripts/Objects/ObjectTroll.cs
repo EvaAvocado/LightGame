@@ -1,7 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Animations;
 using Tools;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Objects
 {
@@ -12,7 +14,7 @@ namespace Objects
         [SerializeField] private AudioClip _wakeUpSound;
         [SerializeField] private AudioClip _bonusSound;
         [SerializeField] private float _pitchOnWakeUp = 1.75f;
-        [SerializeField] private ObjectTrollAnimation _objectTrollAnimation;
+        [FormerlySerializedAs("_objectTrollAnimation")] [SerializeField] private ObjectTrollEndAnimation objectTrollEndAnimation;
 
         private bool _isCanWakeUp;
         private bool _isTumble;
@@ -21,9 +23,11 @@ namespace Objects
         private static readonly int TumbleTrigger = Animator.StringToHash("tumble");
         private static readonly int WakeUpTrigger = Animator.StringToHash("wakeUp");
 
+        public Action OnTumble;
+
         protected override void OnStart()
         {
-            _scoreController.OnScoreReady += SetIsCanWakeUp;
+            if (_scoreController!=null) _scoreController.OnScoreReady += SetIsCanWakeUp;
             _timer = GetComponent<Timer>();
             _timer.OnTimerEnd += WakeUp;
         }
@@ -34,6 +38,7 @@ namespace Objects
             {
                 _audioController.PlayOneShot(_audioSource, _noSound);
                 _animator.SetTrigger(TumbleTrigger);
+                OnTumble?.Invoke();
             }
             else if (_isCanWakeUp && !_isTumble)
             {
@@ -53,7 +58,7 @@ namespace Objects
         {
             _audioController.PlayOneShot(_audioSource, _bonusSound); 
             _animator.SetTrigger(WakeUpTrigger);
-            _objectTrollAnimation.StartAnimation(_audioController, _audioSource, _sceneSwitchController);
+            objectTrollEndAnimation.StartAnimation(_audioController, _audioSource, _sceneSwitchController);
         }
 
         private void SetIsCanWakeUp()
@@ -81,7 +86,7 @@ namespace Objects
         
         private void OnDisable()
         {
-            _scoreController.OnScoreReady -= SetIsCanWakeUp;
+            if (_scoreController!=null) _scoreController.OnScoreReady -= SetIsCanWakeUp;
             _timer.OnTimerEnd -= WakeUp;
         }
         

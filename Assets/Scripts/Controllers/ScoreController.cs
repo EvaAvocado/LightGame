@@ -11,7 +11,7 @@ namespace Controllers
         private List<InteractObject> _interactObjects;
         private int _points;
         private int _maxPoints;
-    
+
         public Action OnAddScore;
         public Action OnScoreReady;
 
@@ -29,10 +29,21 @@ namespace Controllers
             _scoreView.Init(_maxPoints);
         }
 
+        public void Init(List<InteractObject> interactObjects, int maxPoints)
+        {
+            _interactObjects = interactObjects;
+            foreach (var obj in _interactObjects)
+            {
+                obj.OnReady += AddScore;
+            }
+
+            _maxPoints = maxPoints;
+        }
+
         private void AddScore()
         {
             _points++;
-            _scoreView.SetNewPointsInText(_points, _maxPoints);
+            if (_scoreView != null) _scoreView.SetNewPointsInText(_points, _maxPoints);
             OnAddScore?.Invoke();
 
             CheckScore();

@@ -8,8 +8,8 @@ namespace Playable
     {
         [SerializeField] private float _xDelta = 3.93f;
         [SerializeField] private AnimationCurve _yCurve;
-    
         [SerializeField] private bool _isCanScale;
+        [SerializeField] private float _deltaScale = 0.08f;
 
         private readonly float _k1 = 0; // the first angular coefficient
         private float _k2; // the second angular coefficient
@@ -75,7 +75,7 @@ namespace Playable
 
         private void AddDelta()
         {
-            _delta += 0.08f;
+            _delta += _deltaScale;
         }
     }
 }

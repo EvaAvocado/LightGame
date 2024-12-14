@@ -31,7 +31,7 @@ namespace Core
                     FindLevelInstaller();
                     break;
                 case "Tutorial":
-                    print("Tutorial");
+                    FindTutorialInstaller();
                     break;
             }
         }
@@ -42,6 +42,14 @@ namespace Core
             levelInstaller.Init(_audioController, _sceneSwitchController);
 
             _audioController.Init(levelInstaller.GetMusicSources());
+        }
+        
+        private void FindTutorialInstaller()
+        {
+            TutorialInstaller tutorInstaller = FindFirstObjectByType<TutorialInstaller>();
+            tutorInstaller.Init(_audioController, _sceneSwitchController);
+
+            _audioController.Init(tutorInstaller.GetMusicSources());
         }
 
         private void OpenMenu()

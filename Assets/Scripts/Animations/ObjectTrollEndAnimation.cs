@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Animations
 {
-    public class ObjectTrollAnimation : MonoBehaviour
+    public class ObjectTrollEndAnimation : MonoBehaviour
     {
         [Header("Camera Settings")] [SerializeField]
         private Vector3 _cameraPosition;

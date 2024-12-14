@@ -23,6 +23,7 @@ namespace Objects
         private static readonly int Trigger = Animator.StringToHash("trigger");
         private static readonly int TurnOn = Animator.StringToHash("turn-on");
         private static readonly int TurnOff = Animator.StringToHash("turn-off");
+        private static readonly int Tutorial = Animator.StringToHash("tutorial");
 
         protected override void OnStart()
         {
@@ -41,7 +42,7 @@ namespace Objects
             {
                 _timers[0].Begin();
             }
-            
+
             CheckEnter();
         }
 
@@ -53,7 +54,7 @@ namespace Objects
                 _animator.SetTrigger(TurnOff);
                 _isCanOnEnter = false;
             }
-            
+
             if (!_isCanOnEnter)
             {
                 _timers[0].Reset();
@@ -82,7 +83,7 @@ namespace Objects
             _isOffSound = true;
         }
 
-        // Called from the Animation when the light is on
+        // Called from the Animation when the light is on or from Tutorial
         public void OnLight()
         {
             if (!_isOffSound && !_isOnMusic)
