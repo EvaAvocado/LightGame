@@ -1,5 +1,6 @@
 using System;
 using Controllers;
+using Data;
 using UnityEngine;
 
 namespace Objects
@@ -11,17 +12,21 @@ namespace Objects
         protected AudioSource _audioSource;
         protected AudioController _audioController;
         protected ScoreController _scoreController;
+        protected GameConfig _gameConfig;
 
         public Action OnReady;
+        public Action OnAchievement;
+        
         protected SceneSwitchController _sceneSwitchController;
         
-        public void Init(AudioController audioController, ScoreController scoreController, SceneSwitchController sceneSwitchController)
+        public void Init(AudioController audioController, ScoreController scoreController, SceneSwitchController sceneSwitchController, GameConfig gameConfig)
         {
             _animator = GetComponent<Animator>();
             _audioSource = GetComponent<AudioSource>();
             _scoreController = scoreController;
             _audioController = audioController;
             _sceneSwitchController = sceneSwitchController;
+            _gameConfig = gameConfig;
             
             OnStart();
         }

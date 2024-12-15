@@ -25,7 +25,7 @@ namespace Core
         
             foreach (var obj in _objects)
             {
-                obj.Init(audioController, _scoreController, _sceneSwitchController);
+                obj.Init(audioController, _scoreController, _sceneSwitchController, _config);
             }
             
             _scoreController.Init(_objects, _config.MaxScore);

@@ -6,5 +6,6 @@ namespace Data
     public class GameConfig : ScriptableObject
     {
         public int MaxScore = 10;
+        public int AchieveCat = 5;
     }
 }

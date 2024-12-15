@@ -11,6 +11,7 @@ namespace Core
     public class LevelInstaller : MonoBehaviour
     {
         [SerializeField] private List<InteractObject> _objects;
+        [SerializeField] private List<AchievementView> _achievements;
         [SerializeField] private ScoreView _scoreView;
         [SerializeField] private Ray _ray;
         [SerializeField] private GameConfig _config;
@@ -26,7 +27,12 @@ namespace Core
         
             foreach (var obj in _objects)
             {
-                obj.Init(audioController, _scoreController, _sceneSwitchController);
+                obj.Init(audioController, _scoreController, _sceneSwitchController, _config);
+            }
+
+            foreach (var achievement in _achievements)
+            {
+                achievement.Init(audioController);
             }
         
             _scoreController.Init(_objects, _scoreView, _config.MaxScore);

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Data;
 using Tools;
 using UnityEngine;
 
@@ -9,7 +10,8 @@ namespace Objects
     {
         [SerializeField] private List<AudioClip> _catSounds;
         
-        private int _counter;
+        private int _audioCounter;
+        private int _achievementCounter;
         private Timer _timer;
     
         private static readonly int Trigger = Animator.StringToHash("trigger");
@@ -38,7 +40,13 @@ namespace Objects
         // Called from the Animation when the cat meows
         public void PlayNextSound()
         {
-            _counter = _audioController.PlayNextSound(_audioSource, _catSounds, _counter);
+            _achievementCounter++;
+            if (_achievementCounter == _gameConfig.AchieveCat)
+            {
+                OnAchievement?.Invoke();
+            }
+            
+            _audioCounter = _audioController.PlayNextSound(_audioSource, _catSounds, _audioCounter);
         }
         
         private void OnDisable()
