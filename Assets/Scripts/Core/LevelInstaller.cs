@@ -16,11 +16,12 @@ namespace Core
         [SerializeField] private Ray _ray;
         [SerializeField] private GameConfig _config;
         [SerializeField] private List<AudioSource> _musicSources;
+        [SerializeField] private GameObject _tutorialPanel;
         
         private ScoreController _scoreController;
         private SceneSwitchController _sceneSwitchController;
 
-        public void Init(AudioController audioController, SceneSwitchController sceneSwitchController)
+        public void Init(AudioController audioController, SceneSwitchController sceneSwitchController, bool isTutorial)
         {
             _scoreController = new ScoreController();
             _sceneSwitchController = sceneSwitchController;
@@ -37,6 +38,26 @@ namespace Core
         
             _scoreController.Init(_objects, _scoreView, _config.MaxScore);
             _ray.Init(_scoreController);
+            
+            if (isTutorial)
+            {
+                _tutorialPanel.SetActive(true);
+                _ray.gameObject.SetActive(false);
+                foreach (var obj in _objects)
+                {
+                    obj.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+                }
+            }
+        }
+        
+        public void NotOpenTutorialScene()
+        {
+            _sceneSwitchController.SwitchScene("Game");
+        }
+        
+        public void OpenTutorialScene()
+        {
+            _sceneSwitchController.SwitchScene("Tutorial");
         }
         
         public List<AudioSource> GetMusicSources() => _musicSources;

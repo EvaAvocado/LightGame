@@ -28,6 +28,11 @@ namespace Core
                     OpenMenu();
                     break;
                 case "Game":
+                    if (!PlayerPrefs.HasKey("First Launch"))
+                    {
+                        FindLevelInstaller(true);
+                        PlayerPrefs.SetString("First Launch", "true");
+                    }
                     FindLevelInstaller();
                     break;
                 case "Tutorial":
@@ -36,10 +41,10 @@ namespace Core
             }
         }
 
-        private void FindLevelInstaller()
+        private void FindLevelInstaller(bool isTutorial = false)
         {
             LevelInstaller levelInstaller = FindFirstObjectByType<LevelInstaller>();
-            levelInstaller.Init(_audioController, _sceneSwitchController);
+            levelInstaller.Init(_audioController, _sceneSwitchController, isTutorial);
 
             _audioController.Init(levelInstaller.GetMusicSources());
         }
